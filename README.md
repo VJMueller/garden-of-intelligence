@@ -85,21 +85,20 @@ You can get the `ecr_repository_url` with
 terraform output
 ```
 
-```sh
-aws ecr get-login-password --region eu-west-1 --profile sandbox | docker login --username AWS --password-stdin <ecr_repository_url>
-```
+Then you have to run the following commands. Don't forget to replace `ecr_repository_url` by the value you received before
 
 ```sh
+aws ecr get-login-password --region eu-west-1 --profile sandbox | docker login --username AWS --password-stdin <ecr_repository_url>
+
 docker buildx build --platform=linux/amd64 -t garden-of-intelligence-app .
+
 docker tag garden-of-intelligence-app:latest <ecr_repository_url>:latest
+
 docker push <ecr_repository_url>:latest
 ```
 
-```sh
-terraform apply
-```
+By pushing a new image the Apprunner will automatically deploy the new image. You can get the `service_url` with: 
 
-You can get the `service_url` with
 ```sh
 terraform output
 ```
