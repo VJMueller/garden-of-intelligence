@@ -82,3 +82,20 @@ creates an execution plan, which lets you preview the changes that Terraform pla
 `terraform apply`
 performs a plan just like terraform plan does, but then actually carries out the planned changes to each resource using the relevant infrastructure provider's API. It asks for confirmation from the user before making any changes, unless it was explicitly told to skip approval.
 - Check whether the configuration is valid
+
+
+## Deploy code
+
+```sh
+aws ecr get-login-password --region eu-west-1 --profile sandbox | docker login --username AWS --password-stdin 301581146302.dkr.ecr.eu-west-1.amazonaws.com/garden-of-intelligence
+```
+
+```sh
+docker buildx build --platform=linux/amd64 -t garden-of-intelligence-app .
+docker tag garden-of-intelligence-app:latest 301581146302.dkr.ecr.eu-west-1.amazonaws.com/garden-of-intelligence:latest
+docker push 301581146302.dkr.ecr.eu-west-1.amazonaws.com/garden-of-intelligence:latest
+```
+
+```sh
+terraform apply
+```
