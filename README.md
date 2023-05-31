@@ -5,12 +5,10 @@ Personal project
 
 To access the AWS from your local machine you have to configure the AWS CLI [documentation] https://doc.babbel.com/lessonnine/guides.doc/tooling/aws.html#access-from-local-machine
 
-Add token for private gems and packages to your shell variables using Babbel's [documentation](https://doc.babbel.com/lessonnine/guides.doc/tooling/github-packages.html).
-
 
 [Install Docker](https://docs.docker.com/get-docker/), open it and navigate to `Settings --> Resources` and increase the memory value to **4 GB**, if the default value is higher than `4GB`, you can leave as is.
 
-To use terraform install `tfenv`. Then use that to install terraform.
+[Install terraform version manager](https://github.com/tfutils/tfenv) 
 
 ## Docker
 
@@ -32,11 +30,11 @@ To rebuild containers
 docker-compose build --no-cache
 ```
 
-The app will start on port `3044`
+The app will start on port `3000`
 
 # Running commands
 
->If you run the commands from the local machine Terminal instead, prefix them with `docker-compose exec lms-app`.
+>If you run the commands from the local machine terminal prefix them with `docker-compose exec app`.
 
 Run the tests as follows:
 
@@ -57,10 +55,6 @@ bundle exec rails console
 ```
 
 ## Terraform CLI
-`tfenv use`
-`terraform init`
-`terraform apply`
-
 
 `terraform validate`
 Check whether the configuration is valid // also done by plan & apply
