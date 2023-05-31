@@ -16,8 +16,7 @@ RUN apt-get update -qq \
   /var/lib/dpkg \
   /var/lib/cache \
   /var/lib/log
-# Changes localtime to Singapore
-RUN cp /usr/share/zoneinfo/Asia/Singapore /etc/localtime
+
 RUN mkdir /garden-of-intelligence
 WORKDIR /garden-of-intelligence
 COPY Gemfile /garden-of-intelligence/Gemfile
