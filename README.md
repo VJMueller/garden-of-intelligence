@@ -86,16 +86,26 @@ performs a plan just like terraform plan does, but then actually carries out the
 
 ## Deploy code
 
+You can get the `ecr_repository_url` with
 ```sh
-aws ecr get-login-password --region eu-west-1 --profile sandbox | docker login --username AWS --password-stdin 301581146302.dkr.ecr.eu-west-1.amazonaws.com/garden-of-intelligence
+terraform output
+```
+
+```sh
+aws ecr get-login-password --region eu-west-1 --profile sandbox | docker login --username AWS --password-stdin <ecr_repository_url>
 ```
 
 ```sh
 docker buildx build --platform=linux/amd64 -t garden-of-intelligence-app .
-docker tag garden-of-intelligence-app:latest 301581146302.dkr.ecr.eu-west-1.amazonaws.com/garden-of-intelligence:latest
-docker push 301581146302.dkr.ecr.eu-west-1.amazonaws.com/garden-of-intelligence:latest
+docker tag garden-of-intelligence-app:latest <ecr_repository_url>:latest
+docker push <ecr_repository_url>:latest
 ```
 
 ```sh
 terraform apply
+```
+
+You can get the `service_url` with
+```sh
+terraform output
 ```

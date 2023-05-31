@@ -30,3 +30,7 @@ data "aws_iam_policy_document" "ecr-garden-full-access" {
     resources = [aws_ecr_repository.garden-of-intelligence.arn]
   }
 }
+
+output "ecr_repository_url" {
+  value = aws_ecr_repository.garden-of-intelligence.repository_url
+}
