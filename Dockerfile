@@ -1,4 +1,5 @@
 FROM ruby:3.1.2-slim
+ENV SECRET_KEY_BASE=dummy
 RUN apt-get update -qq \
   && apt-get install -y \
   # Needed for certain gems
