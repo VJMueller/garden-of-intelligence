@@ -1,3 +1,7 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# SECURITY GROUP (RDS)
+# ---------------------------------------------------------------------------------------------------------------------
+
 resource "aws_security_group" "db-sg" {
   name        = "postgres-garden-of-intelligence"
   description = "Access to the RDS instances from the VPC"
