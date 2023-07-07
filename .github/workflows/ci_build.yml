@@ -1,0 +1,61 @@
+name: CI
+
+on: [push]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    name: Test and Deploy
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    env:
+      APPLICATION_IMAGE_BUILD: ${{secrets.AWS_ECR_URL}}:sha-${{github.sha}}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Build docker image
+        run: |
+          docker build \
+           --platform=linux/amd64
+           --tag garden-of-intelligence-app \
+           --build-arg CODE_VERSION="${{github.sha}}" \
+           --compress  \
+           .|
+           docker tag garden-of-intelligence-app:latest garden-of-intelligence.cojqrf9vbmqf.eu-west-1.rds.amazonaws.com:5432:latest
+
+      - name: Login to AWS ECR
+        run: |
+          aws ecr get-login-password --region eu-west-1 --profile sandbox |
+            docker login --username AWS --password-stdin garden-of-intelligence.cojqrf9vbmqf.eu-west-1.rds.amazonaws.com:5432>
+
+      - name: Push docker image to Amazon ECR
+        run: |
+          docker push garden-of-intelligence.cojqrf9vbmqf.eu-west-1.rds.amazonaws.com:5432:latest
+          docker logout
