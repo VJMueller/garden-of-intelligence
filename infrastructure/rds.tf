@@ -29,3 +29,7 @@ resource "aws_db_instance" "db" {
   vpc_security_group_ids  = [aws_security_group.db-sg.id]
   db_subnet_group_name    = aws_db_subnet_group.db-subnet-grp.id
 }
+
+output "db_instance_endpoint" {
+  value = aws_db_instance.db.endpoint
+}

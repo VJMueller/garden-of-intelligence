@@ -1,19 +1,16 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: garden-of-intelligence
-  password: <%= ENV['GARDEN_OF_INTELLIGENCE_DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
-  database: garden-of-intelligence_development
+  url: <%= ENV.fetch('DATABASE_URL', 'postgresql://postgres:postgres@garden-of-intelligence-db:5432/garden-of-intelligence-db_development') %>
 
 test:
   <<: *default
-  database: garden-of-intelligence_test
+  url: <%= ENV.fetch('TEST_DATABASE_URL', 'postgresql://postgres:postgres@garden-of-intelligence-db:5432/garden-of-intelligence-db_test') %>
 
 production:
   <<: *default
+  database: garden-of-intelligence
   url: <%= ENV.fetch('DATABASE_URL', '') %>
-
