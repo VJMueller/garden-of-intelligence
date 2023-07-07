@@ -10,17 +10,25 @@ services:
    - ./tmp/postgres/data:/var/lib/postgresql/data
   ports:
    - "${DOCKER_POSTGRES_PORT-5432}:5432"
-  
+  healthcheck:
+    test: CMD curl -f http://localhost:5432 || exit 1
+    interval: 1s
+    timeout: 30s
+    retries: 10
+    start_period: 30s
+
  app:
   container_name: garden-of-intelligence-app
   build:
     context: .
-    dockerfile: ./Dockerfile.development
+    args: 
+      BUNDLE_WITHOUT: ""
+  command: bin/start_local
   environment:
       - DATABASE_URL
   volumes:
-    - .:/app
-    - /app/tmp # don't mount tmp directory
+    - .:/home/rails/app
+    - /home/rails/app/tmp
   ports:
    - "3000:3000"
   tty: true
