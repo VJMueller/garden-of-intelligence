@@ -1,3 +1,10 @@
+# ToDo: 
+# - Try other images than ruby:3.1.2-alpine
+# - Find out what the issue is of building the image from local machine vs. github
+# - Find out which platforms (system architecture) AWS Apprunner supports
+# - Find out why AWS Apprunner fails to deploy the image and returns the following error
+# ------- PM exec ./docker-entrypoint.sh: exec format error
+
 # *******************
 # Stage base
 FROM ruby:3.1.2-alpine as base_stage
@@ -43,4 +50,6 @@ COPY --chown=${USERNAME}:${USERNAME} --from=bundle ${GEM_HOME} ${GEM_HOME}
 COPY --chown=${USERNAME}:${USERNAME} . ${WORKDIR}
 USER ${USERNAME}:${USERNAME}
 EXPOSE 3000
+# ToDo: command in entrypoint is missing. example commands are the following: 
+# CMD bash -c "rm -f tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'"
 ENTRYPOINT ["./docker-entrypoint.sh"]
