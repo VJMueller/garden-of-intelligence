@@ -52,8 +52,8 @@ jobs:
 
       - name: Login to AWS ECR
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} --profile sandbox |
-            docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URL }}>
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} |
+            docker login --username AWS --password-stdin `echo ${{ secrets.AWS_ECR_URL }}> | cut -d/ -f1`
 
       - name: Push docker image to Amazon ECR
         run: |
