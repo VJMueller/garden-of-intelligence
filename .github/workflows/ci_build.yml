@@ -50,14 +50,14 @@ jobs:
            --build-arg CODE_VERSION="${{github.sha}}" \
            --compress  \
            .|
-           docker tag garden-of-intelligence-app:latest garden-of-intelligence.cojqrf9vbmqf.eu-west-1.rds.amazonaws.com:5432:latest
+           docker tag garden-of-intelligence-app:latest ${{secrets.APPLICATION_IMAGE_BUILD}}
 
       - name: Login to AWS ECR
         run: |
-          aws ecr get-login-password --region eu-west-1 --profile sandbox |
-            docker login --username AWS --password-stdin garden-of-intelligence.cojqrf9vbmqf.eu-west-1.rds.amazonaws.com:5432>
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} --profile sandbox |
+            docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URL }}>
 
       - name: Push docker image to Amazon ECR
         run: |
-          docker push garden-of-intelligence.cojqrf9vbmqf.eu-west-1.rds.amazonaws.com:5432:latest
+          docker push ${{secrets.APPLICATION_IMAGE_BUILD}}
           docker logout
