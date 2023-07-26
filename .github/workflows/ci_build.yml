@@ -26,7 +26,7 @@ jobs:
         ports:
           - 5432:5432
     env:
-      APPLICATION_IMAGE_BUILD: ${{secrets.AWS_ECR_URL}}:sha-${{github.sha}}
+      APPLICATION_IMAGE_BUILD: ${{secrets.AWS_ECR_URL}}:latest
     steps:
       - name: checkout repository
         uses: actions/checkout@v3
