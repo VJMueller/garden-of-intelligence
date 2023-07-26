@@ -43,7 +43,7 @@ jobs:
            --tag $APPLICATION_IMAGE_BUILD \
            --build-arg CODE_VERSION="${{github.sha}}" \
            --compress  \
-           .|
+           .
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
