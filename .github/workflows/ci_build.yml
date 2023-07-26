@@ -39,7 +39,6 @@ jobs:
       - name: Build docker image
         run: |
           docker build \
-           --platform=linux/amd64
            --tag $APPLICATION_IMAGE_BUILD \
            --build-arg CODE_VERSION="${{github.sha}}" \
            --compress  \
