@@ -15,6 +15,7 @@ resource "aws_apprunner_service" "garden_of_intelligence" {
           ENVIRONMENT = "production"
           RAILS_ENV = "production"
           DATABSE_URL = aws_db_instance.db.endpoint
+          SECRET_KEY_BASE = "dummy"
         }                       
       }
       image_identifier = "${aws_ecr_repository.garden-of-intelligence.repository_url}:latest"                          
