@@ -30,12 +30,6 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v3
-      
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
@@ -46,11 +40,16 @@ jobs:
         run: |
           docker build \
            --platform=linux/amd64
-           --tag garden-of-intelligence-app \
+           --tag $APPLICATION_IMAGE_BUILD \
            --build-arg CODE_VERSION="${{github.sha}}" \
            --compress  \
            .|
-           docker tag garden-of-intelligence-app:latest ${{secrets.APPLICATION_IMAGE_BUILD}}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to AWS ECR
         run: |
