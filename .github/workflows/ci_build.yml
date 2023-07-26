@@ -5,8 +5,8 @@ name: CI
 on:
   push:
     branches:
-      - 'deployment-branch'
-      - 'main'
+      - deployment-branch
+      - main
 
 permissions:
   contents: read
