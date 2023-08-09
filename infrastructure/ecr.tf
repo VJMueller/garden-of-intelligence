@@ -1,6 +1,6 @@
 # Configure the AWS ECR
 resource "aws_ecr_repository" "garden-of-intelligence" {
-  name                 = "garden-of-intelligence"
+  name                 = var.APP_NAME
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -10,7 +10,7 @@ resource "aws_ecr_repository" "garden-of-intelligence" {
 
 data "aws_iam_policy_document" "ecr-garden-full-access" {
   statement {
-    actions   = [
+    actions = [
       "ecr:GetDownloadUrlForLayer",
       "ecr:BatchGetImage",
       "ecr:BatchCheckLayerAvailability",
@@ -31,6 +31,7 @@ data "aws_iam_policy_document" "ecr-garden-full-access" {
   }
 }
 
+# TODO: will this be needed after adding secrets to repo ci?
 output "ecr_repository_url" {
   value = aws_ecr_repository.garden-of-intelligence.repository_url
 }
