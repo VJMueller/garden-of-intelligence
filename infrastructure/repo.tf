@@ -22,6 +22,12 @@ resource "github_actions_secret" "AWS_REGION" {
   plaintext_value = data.aws_region.current.name
 }
 
+resource "github_actions_secret" "DATABASE_URL" {
+  repository      = data.github_repository.this.name
+  secret_name     = "DATABASE_URL"
+  plaintext_value = aws_db_instance.db.endpoint
+}
+
 # Configuration for allowing github actions to communicate with AWS
 
 # This is already setup on the shared aws account
