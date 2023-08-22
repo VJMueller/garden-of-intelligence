@@ -3,6 +3,8 @@ Personal project
 
 ## Requirements
 
+Set personal GITHUB_TOKEN in your `.evncr` file. The token needs permissions to read and write repository secrets.
+
 To access the AWS from your local machine you have to configure the AWS CLI [documentation] https://doc.babbel.com/lessonnine/guides.doc/tooling/aws.html#access-from-local-machine
 
 

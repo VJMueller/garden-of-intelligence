@@ -1,3 +1,17 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# GITHUB REPOSITORY
+# ---------------------------------------------------------------------------------------------------------------------
+
+# Learnings:
+# - with 'data' you refer to existing resources
+# - to allow github actions to communicate with AWS you need to authenticate with an iam role
+# - to avoid broad permissions and follow principle of least privilege you can use aws cloud trail, 
+#   you find the corresponding logs of API requests via github actions with the role-session-name set in the CI
+# - An AWS trust policy establishes the trust relationship between an IAM role and the entities that can assume that role. 
+#   When an entity assumes an IAM role, it temporarily acquires the permissions associated with that role. 
+#   This is commonly used to grant permissions to services, applications, or users from different AWS accounts or services, 
+#   enabling them to access resources securely. 
+
 data "github_repository" "this" {
   full_name = var.REPO_PATH
 }
@@ -20,6 +34,12 @@ resource "github_actions_secret" "AWS_REGION" {
   repository      = data.github_repository.this.name
   secret_name     = "AWS_REGION"
   plaintext_value = data.aws_region.current.name
+}
+
+resource "github_actions_secret" "DATABASE_URL" {
+  repository      = data.github_repository.this.name
+  secret_name     = "DATABASE_URL"
+  plaintext_value = aws_db_instance.db.endpoint
 }
 
 # Configuration for allowing github actions to communicate with AWS

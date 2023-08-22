@@ -2,6 +2,12 @@
 # PROVIDER
 # ---------------------------------------------------------------------------------------------------------------------
 
+# Learnings:
+# - https://developer.hashicorp.com/terraform/language/providers
+# - Terraform providers are plugins that enable Terraform to interact with and manage specific infrastructure platforms or services,
+#   allowing users to define and deploy their desired infrastructure configurations.
+# - both aws and github provider need additional configuration
+
 terraform {
   required_providers {
     aws = {
