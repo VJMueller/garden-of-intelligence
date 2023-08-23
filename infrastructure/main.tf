@@ -14,6 +14,7 @@ resource "aws_apprunner_service" "garden_of_intelligence" {
         runtime_environment_variables = {
           ENVIRONMENT = "production"
           RAILS_ENV   = "production"
+          SECRET_KEY_BASE = "dummy"
           DATABASE_URL = aws_db_instance.db.endpoint
         }
       }
