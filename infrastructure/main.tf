@@ -12,10 +12,10 @@ resource "aws_apprunner_service" "garden_of_intelligence" {
       image_configuration {
         port = "3000" #The port that your application listens to in the container
         runtime_environment_variables = {
-          ENVIRONMENT = "production"
-          RAILS_ENV   = "production"
+          ENVIRONMENT     = "production"
+          RAILS_ENV       = "production"
           SECRET_KEY_BASE = "dummy"
-          DATABASE_URL = aws_db_instance.db.endpoint
+          DATABASE_URL    = "postgresql://${aws_db_instance.db.username}:${aws_db_instance.db.password}@${aws_db_instance.db.endpoint}:${aws_db_instance.db.port}/${aws_db_instance.db.identifier}"
         }
       }
       image_identifier      = "${aws_ecr_repository.garden-of-intelligence.repository_url}:latest"
