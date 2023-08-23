@@ -1,5 +1,5 @@
 class PlantsController < ApplicationController
   def index
-    @plants = Plant.all
+    @text = "Hello World"
   end
 end
