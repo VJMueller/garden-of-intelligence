@@ -1,9 +1,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  user: root
-  password: 05cd8d797da4fb88a199c14294b5966fe9276e7c61c5476116addcf44facab4aa77a12541050c25312f3fd20f839cea4b2cdb1b42bfade1dd612027f6a1d4a01
-
 development:
   <<: *default
   url: <%= ENV.fetch('DATABASE_URL', 'postgresql://postgres:postgres@garden-of-intelligence-db:5432/garden-of-intelligence-db_development') %>
@@ -15,4 +12,4 @@ test:
 production:
   <<: *default
   database: garden-of-intelligence
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= 'postgresql://postgres:postgres@garden-of-intelligence.cojqrf9vbmqf.eu-west-1.rds.amazonaws.com:5432' %>
