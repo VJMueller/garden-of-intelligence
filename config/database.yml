@@ -1,6 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+
 development:
   <<: *default
   url: <%= ENV.fetch('DATABASE_URL', 'postgresql://postgres:postgres@garden-of-intelligence-db:5432/garden-of-intelligence-db_development') %>
