@@ -35,7 +35,6 @@ RUN set -eux; \
 RUN gem install bundler -v 2.3.12 && \
     gem cleanup bundler
 RUN bundle install
-RUN bundle exec rails RAILS_ENV=production assets:precompile
 # --jobs "$(getconf _NPROCESSORS_ONLN)"
 
 # Stage: Final
@@ -43,5 +42,6 @@ FROM base_stage
 COPY --chown=${USERNAME}:${USERNAME} --from=bundle ${GEM_HOME} ${GEM_HOME}
 COPY --chown=${USERNAME}:${USERNAME} . ${WORKDIR}
 USER ${USERNAME}:${USERNAME}
+RUN bundle exec rake RAILS_ENV=production assets:precompile
 EXPOSE 3000
 CMD bundle exec rails server -b "0.0.0.0" -p 3000
