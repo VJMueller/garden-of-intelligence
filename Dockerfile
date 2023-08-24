@@ -35,7 +35,7 @@ RUN set -eux; \
 RUN gem install bundler -v 2.3.12 && \
     gem cleanup bundler
 RUN bundle install
-RUN bundle exec rake RAILS_ENV=production assets:precompile
+RUN bundle exec rails RAILS_ENV=production assets:precompile
 # --jobs "$(getconf _NPROCESSORS_ONLN)"
 
 # Stage: Final
