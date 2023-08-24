@@ -1,7 +1,12 @@
-<h1>Plants Overview</h1>
+<h1>Plants</h1>
 
-<ul>
+<%
+=begin%>
+ <ul>
     <% @plants.each do |plant| %>
         <li> <%= plant.name %> <li>
     <% end %>
 <ul>
+ 
+<%
+=end%>
