@@ -5,6 +5,7 @@ on:
     branches:
       - production-branch
       - main
+      - fix-database-in-production
 
 permissions:
   contents: read
@@ -29,7 +30,6 @@ jobs:
           - 5432:5432
     env:
       APPLICATION_IMAGE_BUILD: ${{secrets.AWS_ECR_URL}}:latest
-      SECRET_KEY_BASE: dummy
     steps:
       - name: checkout repository
         uses: actions/checkout@v3

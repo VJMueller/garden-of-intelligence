@@ -34,7 +34,7 @@ RUN set -eux; \
 
 RUN gem install bundler -v 2.3.12 && \
     gem cleanup bundler
-RUN bundle install 
+RUN bundle install
 # --jobs "$(getconf _NPROCESSORS_ONLN)"
 
 # Stage: Final
