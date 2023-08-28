@@ -15,19 +15,6 @@ jobs:
   build:
     name: Test and Deploy
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
     env:
       APPLICATION_IMAGE_BUILD: ${{secrets.AWS_ECR_URL}}:latest
       DATABASE_URL: ${{secrets.DATABASE_URL}}
