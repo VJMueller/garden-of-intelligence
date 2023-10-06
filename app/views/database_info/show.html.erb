@@ -1,0 +1,13 @@
+<h1>Database Connection Test</h1>
+
+<% if @connection_success %>
+  <p>The database connection is successful!</p>
+  <ul>
+    <li> connection: <%= @connection %> </li>
+    <li> connection_config: <%= @connection_config %> </li>
+    <li> adapter: <%= @adapter %> </li>
+    <li> database_name: <%= @database_name %> </li>
+    <li> database_version: <%= @database_version %> </li>
+<% else %>
+  <p>Database connection failed. Error message: <%= @error_message %></p>
+<% end %>

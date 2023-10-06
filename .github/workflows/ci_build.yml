@@ -5,7 +5,7 @@ on:
     branches:
       - production-branch
       - main
-      - fix-asset-pipeline-2
+      - database-info
 
 permissions:
   contents: read
