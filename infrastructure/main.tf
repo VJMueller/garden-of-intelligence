@@ -15,7 +15,7 @@ resource "aws_apprunner_service" "garden_of_intelligence" {
           ENVIRONMENT     = "production"
           RAILS_ENV       = "production"
           SECRET_KEY_BASE = "dummy"
-          DATABASE_URL    = "postgresql://${aws_db_instance.db.username}:${aws_db_instance.db.password}@${aws_db_instance.db.address}/${aws_db_instance.db.identifier}"
+          DATABASE_URL    = "postgresql://${aws_db_instance.garden-of-intelligence.username}:${aws_db_instance.garden-of-intelligence.password}@${aws_db_instance.garden-of-intelligence.address}/${aws_db_instance.garden-of-intelligence.db_name}"
         }
       }
       image_identifier      = "${aws_ecr_repository.garden-of-intelligence.repository_url}:latest"
