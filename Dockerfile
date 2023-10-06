@@ -46,12 +46,12 @@ USER ${USERNAME}:${USERNAME}
 ARG DATABASE_URL
 ENV DATABASE_URL $DATABASE_URL
 
-ADD check_db_connection.sh /check_db_connection.sh
-RUN chmod +x /check_db_connection.sh
+COPY check_db_connection.sh /app/scripts/check_db_connection.sh
+RUN chmod +x /app/scripts/check_db_connection.sh
 
 RUN bundle exec rake RAILS_ENV=production assets:precompile
-# RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
+RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
 # RUN bundle exec rails db:migrate
 
 EXPOSE 3000
-CMD /check_db_connection.sh && bundle exec rails server -b "0.0.0.0" -p 3000
+CMD /app/scripts/check_db_connection.sh && bundle exec rails server -b "0.0.0.0" -p 3000
