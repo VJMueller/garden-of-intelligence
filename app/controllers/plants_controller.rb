@@ -10,8 +10,8 @@ class PlantsController < ApplicationController
       @database_version = connection&.raw_connection&.server_version
       #@host = connection&.host
       #@port = connection&.port
-      @username = connection&.raw_connection&.user
-      @current_user = connection&.raw_connection&.username
+      #@username = connection&.raw_connection&.user
+      #@current_user = connection&.raw_connection&.username
     rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid => e
       @connection_success = false
       @error_message = e.message
