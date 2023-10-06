@@ -30,6 +30,7 @@ jobs:
           - 5432:5432
     env:
       APPLICATION_IMAGE_BUILD: ${{secrets.AWS_ECR_URL}}:latest
+      DATABASE_URL: ${{secrets.DATABASE_URL}}
     steps:
       - name: checkout repository
         uses: actions/checkout@v3
