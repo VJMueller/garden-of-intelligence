@@ -5,7 +5,7 @@ on:
     branches:
       - production-branch
       - main
-      - fix-database-in-production-2
+      - fix-database-production-2
 
 permissions:
   contents: read
