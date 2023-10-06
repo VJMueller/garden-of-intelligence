@@ -30,9 +30,6 @@ resource "aws_db_instance" "garden-of-intelligence" {
   username = "root"
   password = random_id.postgres-garden-of-intelligence-password.hex
 
-  # publicly_accessible                 = true
-  iam_database_authentication_enabled = true
-
   multi_az               = false
   vpc_security_group_ids = [aws_security_group.db-sg.id]
   db_subnet_group_name   = aws_db_subnet_group.db-subnet-grp.id

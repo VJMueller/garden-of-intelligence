@@ -93,3 +93,4 @@ data "aws_iam_policy_document" "repo-ecr-auth" {
     resources = ["*"]
   }
 }
+
