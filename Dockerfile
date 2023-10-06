@@ -49,8 +49,7 @@ ENV DATABASE_URL $DATABASE_URL
 COPY --chown=${USERNAME}:${USERNAME} healthcheck.sh /healthcheck.sh
 RUN chmod +x /healthcheck.sh
 
-HEALTHCHECK --interval=30s --timeout=10s \
-  CMD /bin/sh /healthcheck.sh
+HEALTHCHECK --interval=30s --timeout=10s CMD /bin/sh /healthcheck.sh
 
 RUN bundle exec rake RAILS_ENV=production assets:precompile
 RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
