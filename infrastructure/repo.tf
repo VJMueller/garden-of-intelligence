@@ -22,12 +22,6 @@ resource "github_actions_secret" "AWS_REGION" {
   plaintext_value = data.aws_region.current.name
 }
 
-resource "github_actions_secret" "DATABASE_URL" {
-  repository      = data.github_repository.this.name
-  secret_name     = "DATABASE_URL"
-  plaintext_value = "postgresql://${aws_db_instance.garden-of-intelligence.username}:${aws_db_instance.garden-of-intelligence.password}@${aws_db_instance.garden-of-intelligence.address}/${aws_db_instance.garden-of-intelligence.db_name}"
-}
-
 # Configuration for allowing github actions to communicate with AWS
 
 # This is already setup on the shared aws account
@@ -98,10 +92,4 @@ data "aws_iam_policy_document" "repo-ecr-auth" {
 
     resources = ["*"]
   }
-}
-
-resource "aws_iam_role_policy" "rds-garden-full-access" {
-  role   = aws_iam_role.repo.name
-  name   = "rds-${var.APP_NAME}-full-access"
-  policy = data.aws_iam_policy_document.rds-garden-full-access.json
 }
