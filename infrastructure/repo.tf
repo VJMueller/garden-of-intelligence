@@ -100,3 +100,8 @@ data "aws_iam_policy_document" "repo-ecr-auth" {
   }
 }
 
+resource "aws_iam_role_policy" "rds-garden-full-access" {
+  role   = aws_iam_role.repo.name
+  name   = "rds-${var.APP_NAME}-full-access"
+  policy = data.aws_iam_policy_document.rds-garden-full-access.json
+}
