@@ -1,5 +1,7 @@
-<h1>Plants Overview</h1>
+<h1>Database Connection Test</h1>
 
-<ul>
-    <%= @plants %>
-<ul>
+<% if @connection_success %>
+  <p>The database connection is successful!</p>
+<% else %>
+  <p>Database connection failed. Error message: <%= @error_message %></p>
+<% end %>

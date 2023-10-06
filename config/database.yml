@@ -12,4 +12,4 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV.fetch('DATABASE_URL', 'There is no Database') %>
+  url: <%= ENV.fetch('DATABASE_URL', '') %>
