@@ -5,7 +5,7 @@ on:
     branches:
       - production-branch
       - main
-      - database-info
+      - test-docker-entrypoint
 
 permissions:
   contents: read

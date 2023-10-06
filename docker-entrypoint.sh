@@ -1,4 +1,7 @@
-#!/usr/bin/env sh
-set -ex
+#!/bin/sh
 
+# Perform database migrations
+rails db:create
+
+# Start the Rails server
 exec "$@"
