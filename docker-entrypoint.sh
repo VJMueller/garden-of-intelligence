@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Perform database migrations
-rails db:create
+rails db:migrate
 
 # Start the Rails server
 exec "$@"
