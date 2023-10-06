@@ -46,7 +46,7 @@ USER ${USERNAME}:${USERNAME}
 ARG DATABASE_URL
 ENV DATABASE_URL $DATABASE_URL
 
-ADD check_db_connection.sh /app
+ADD check_db_connection.sh /app/check_db_connection.sh
 RUN chmod +x /app/check_db_connection.sh
 
 RUN bundle exec rake RAILS_ENV=production assets:precompile
