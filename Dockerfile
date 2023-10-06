@@ -18,8 +18,6 @@ RUN set -eux; \
     libpq-dev
 ARG USERNAME=rails
 ENV USERNAME $USERNAME
-ARG DATABASE_URL
-ENV DATABASE_URL $DATABASE_URL
 RUN adduser -D -H ${USERNAME} ${USERNAME}
 ENV HOMEDIR /home/${USERNAME}
 ENV WORKDIR ${HOMEDIR}/app
@@ -38,11 +36,6 @@ RUN gem install bundler -v 2.3.12 && \
     gem cleanup bundler
 RUN bundle install
 
-
-ADD check_db_connection.sh /check_db_connection.sh
-RUN chmod +x /check_db_connection.sh
-RUN /check_db_connection.sh
-
 # --jobs "$(getconf _NPROCESSORS_ONLN)"
 
 # Stage: Final
@@ -50,9 +43,15 @@ FROM base_stage
 COPY --chown=${USERNAME}:${USERNAME} --from=bundle ${GEM_HOME} ${GEM_HOME}
 COPY --chown=${USERNAME}:${USERNAME} . ${WORKDIR}
 USER ${USERNAME}:${USERNAME}
+ARG DATABASE_URL
+ENV DATABASE_URL $DATABASE_URL
+
+ADD check_db_connection.sh /check_db_connection.sh
+RUN chmod +x /check_db_connection.sh
+
 RUN bundle exec rake RAILS_ENV=production assets:precompile
-RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
+# RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
 # RUN bundle exec rails db:migrate
 
 EXPOSE 3000
-CMD bundle exec rails server -b "0.0.0.0" -p 3000
+CMD /check_db_connection.sh && bundle exec rails server -b "0.0.0.0" -p 3000
