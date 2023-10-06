@@ -19,7 +19,8 @@ RUN set -eux; \
 ARG USERNAME=rails
 ENV USERNAME $USERNAME
 ARG DATABASE_URL
-ENV DATABASE_URL $DATABASE_URL	
+ENV DATABASE_URL $DATABASE_URL
+RUN echo "The value of DATABASE_URL is: $DATABASE_URL"
 RUN adduser -D -H ${USERNAME} ${USERNAME}
 ENV HOMEDIR /home/${USERNAME}
 ENV WORKDIR ${HOMEDIR}/app
@@ -46,6 +47,7 @@ COPY --chown=${USERNAME}:${USERNAME} . ${WORKDIR}
 USER ${USERNAME}:${USERNAME}
 RUN bundle exec rake RAILS_ENV=production assets:precompile
 RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
+# RUN bundle exec rails db:migrate
 
 EXPOSE 3000
 CMD bundle exec rails server -b "0.0.0.0" -p 3000
