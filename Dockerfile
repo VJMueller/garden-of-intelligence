@@ -17,7 +17,7 @@ RUN set -eux; \
     # Needed for postgres gem
     libpq-dev
 ARG USERNAME=rails
-ENV USERNAME $USERNAME
+ENV USERNAME $USERNAME	
 RUN adduser -D -H ${USERNAME} ${USERNAME}
 ENV HOMEDIR /home/${USERNAME}
 ENV WORKDIR ${HOMEDIR}/app
@@ -35,7 +35,6 @@ RUN set -eux; \
 RUN gem install bundler -v 2.3.12 && \
     gem cleanup bundler
 RUN bundle install
-
 # --jobs "$(getconf _NPROCESSORS_ONLN)"
 
 # Stage: Final
@@ -43,12 +42,7 @@ FROM base_stage
 COPY --chown=${USERNAME}:${USERNAME} --from=bundle ${GEM_HOME} ${GEM_HOME}
 COPY --chown=${USERNAME}:${USERNAME} . ${WORKDIR}
 USER ${USERNAME}:${USERNAME}
-
-ARG DATABASE_URL
-ENV DATABASE_URL $DATABASE_URL
-
 RUN bundle exec rake RAILS_ENV=production assets:precompile
-# RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
 
 EXPOSE 3000
-CMD bundle exec rails server -b "0.0.0.0" -p 3000
+ENTRYPOINT ["./docker-entrypoint.sh"]
