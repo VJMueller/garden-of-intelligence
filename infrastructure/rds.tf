@@ -14,8 +14,9 @@ resource "random_id" "postgres-garden-of-intelligence-password" {
   byte_length = 8
 }
 
-resource "aws_db_instance" "db" {
+resource "aws_db_instance" "garden-of-intelligence" {
   identifier = var.APP_NAME
+  db_name = "garden_of_intelligence"
 
   engine         = "postgres"
   engine_version = "13.10"
@@ -24,9 +25,12 @@ resource "aws_db_instance" "db" {
 
   storage_type      = "gp2"
   allocated_storage = 20
+  skip_final_snapshot = true
 
   username = "root"
   password = random_id.postgres-garden-of-intelligence-password.hex
+
+  publicly_accessible = true
 
   multi_az               = false
   vpc_security_group_ids = [aws_security_group.db-sg.id]
