@@ -20,7 +20,6 @@ ARG USERNAME=rails
 ENV USERNAME $USERNAME
 ARG DATABASE_URL
 ENV DATABASE_URL $DATABASE_URL
-RUN echo "The value of DATABASE_URL is: $DATABASE_URL"
 RUN adduser -D -H ${USERNAME} ${USERNAME}
 ENV HOMEDIR /home/${USERNAME}
 ENV WORKDIR ${HOMEDIR}/app
@@ -38,6 +37,12 @@ RUN set -eux; \
 RUN gem install bundler -v 2.3.12 && \
     gem cleanup bundler
 RUN bundle install
+
+
+ADD check_db_connection.sh /check_db_connection.sh
+RUN chmod +x /check_db_connection.sh
+RUN /check_db_connection.sh
+
 # --jobs "$(getconf _NPROCESSORS_ONLN)"
 
 # Stage: Final
