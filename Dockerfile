@@ -49,12 +49,13 @@ ENV DATABASE_URL $DATABASE_URL
 COPY --chown=${USERNAME}:${USERNAME} healthcheck.sh /healthcheck.sh
 
 RUN bundle exec rake RAILS_ENV=production assets:precompile
-# RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
 # RUN bundle exec rails db:migrate
 
 
 HEALTHCHECK --interval=30s --timeout=10s \
   CMD /bin/sh /healthcheck.sh
+
+RUN bundle exec rake RAILS_ENV=production db:create db:schema:load
 
 EXPOSE 3000
 CMD bundle exec rails server -b "0.0.0.0" -p 3000

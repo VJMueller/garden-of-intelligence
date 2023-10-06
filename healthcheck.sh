@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Checking database connection..."
+
 # Check the database connection
 if bundle exec rake db:version >/dev/null 2>&1; then
   exit 0  # Database connection is successful
