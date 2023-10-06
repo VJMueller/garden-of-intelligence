@@ -1,16 +1,7 @@
-<h1>Database Connection Test</h1>
+<h1>Plants</h1>
 
-<% if @connection_success %>
-  <p>The database connection is successful!</p>
-  <ul>
-    <li> database_name: <%= @database_name %> </li>
-    <li> adapter: <%= @adapter %> </li>
-    <li> database_version: <%= @database_version %> </li>
-    <li> host: <%= @host %> </li>
-    <li> port: <%= @port %> </li>
-    <li> username: <%= @username %> </li>
-    <li> current_user: <%= @current_user %> </li>
-</ul>
-<% else %>
-  <p>Database connection failed. Error message: <%= @error_message %></p>
-<% end %>
+<ul>
+    <% @plants.each do |plant| %>
+        <li> <%= plant.name %> <li>
+    <% end %>
+<ul>
