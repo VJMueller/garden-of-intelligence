@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-    root "plants#index"
+  root 'home#index'
 
-    get "/plants", to: "plants#index"
-    get '/database_info', to: 'database_info#show'
+  get "/plants", to: "plants#index"
+  get '/database_info', to: 'database_info#show'
 end
