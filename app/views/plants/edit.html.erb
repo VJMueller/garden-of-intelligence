@@ -1,4 +1,5 @@
-<%= link_to "All Plants", root_path %>
+<%= link_to "All Plants", plants_path %>
+<%= link_to "Back", plant_path(@plant) %>
 <h1> <%= @plant.name %> </h1>
 
 <%= render "form", plant: @plant %>
