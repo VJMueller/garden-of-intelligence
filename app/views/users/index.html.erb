@@ -1,0 +1,8 @@
+<h1>Registered Users</h1>
+<%= link_to "Admin Tools", admin_index_path %>
+
+<ul>
+    <% @users.each do |user| %>
+        <li> <%= link_to user.email, user %> || <%=user.role %> </li>
+    <% end %>
+<ul>

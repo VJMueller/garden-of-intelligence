@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root 'home#index'
 
+  resources :users, only: %i[index show edit update destroy]
   resources :plants
-  get '/database_info', to: 'database_info#show'
+  resources :admin, only: %i[index]
+  resources :database, only: %i[index]
 end
