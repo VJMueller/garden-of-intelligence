@@ -3,18 +3,22 @@ class PlantsController < ApplicationController
 
   def index
     @plants = Plant.all
+    authorize @plants
   end
 
   def show
     @plant = Plant.find(params[:id])
+    authorize @plant
   end
 
   def new
     @plant = Plant.new
+    authorize @plant
   end
 
   def create
     @plant = Plant.new(plant_params)
+    authorize @plant
     if @plant.save
       redirect_to @plant
     else
@@ -24,11 +28,12 @@ class PlantsController < ApplicationController
 
   def edit
     @plant = Plant.find(params[:id])
+    authorize @plant
   end
 
   def update
     @plant = Plant.find(params[:id])
-
+    authorize @plant
     if @plant.update(plant_params)
       redirect_to @plant
     else
@@ -38,9 +43,9 @@ class PlantsController < ApplicationController
 
   def destroy
     @plant = Plant.find(params[:id])
-
+    authorize @plant
     @plant.destroy!
-    redirect_to root_path, status: :see_other
+    redirect_to plants_path, status: :see_other
   end
 
   private
