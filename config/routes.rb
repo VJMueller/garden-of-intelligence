@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-    root "plants#index"
+  devise_for :users
+  root 'home#index'
 
-    resources :plants
-    get '/database_info', to: 'database_info#show'
+  resources :plants
+  get '/database_info', to: 'database_info#show'
 end
