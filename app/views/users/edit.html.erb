@@ -1,0 +1,5 @@
+<%= link_to "All Users", users_path %>
+<%= link_to "Back", user_path(@user) %>
+<h1> <%= @user.email %> </h1>
+
+<%= render "form", user: @user%>
