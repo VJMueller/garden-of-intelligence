@@ -49,6 +49,9 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 gem 'faker'
 
+# authorization
+gem "pundit", "~> 2.3"
+
 # authentication
 gem "devise", "~> 4.9"
 
@@ -66,6 +69,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'pry', '~> 0.14.2'
 end
 
 group :test do
