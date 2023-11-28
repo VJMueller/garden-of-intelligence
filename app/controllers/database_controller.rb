@@ -1,4 +1,4 @@
-class DatabaseInfoController < ApplicationController
+class DatabaseController < ApplicationController
     def show
         begin
             ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])
