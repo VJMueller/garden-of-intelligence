@@ -4,5 +4,6 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[index show edit update destroy]
   resources :plants
-  get '/database', to: 'database#show'
+  resources :admin, only: %i[index]
+  resources :database, only: %i[index]
 end

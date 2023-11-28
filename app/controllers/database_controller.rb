@@ -1,5 +1,7 @@
 class DatabaseController < ApplicationController
-    def show
+    before_action :authenticate_user!
+
+    def index
         begin
             ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])
             @connection = ActiveRecord::Base.connection
